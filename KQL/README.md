@@ -328,3 +328,26 @@ Event
 	, TimeGenerated
 	, DayGenerated
 ```
+
+## The endof command
+- Similar to start of, function for end of a time period
+
+## The between command
+
+```
+//Between is used to get a range of values.
+Perf
+| where CounterNmae == "%Free Space"
+| where CounterValue between (70.0 .. 100.0)
+
+// Also used with dates
+Perf
+| where CounterNmae == "%Free Space"
+| where CounterValue between (datetime(2018-04-01) .. datetime(2018-04-03))
+// omits data before/after midnight of these days => use startof/endof for inclusive results
+
+Perf
+| where CounterNmae == "%Free Space"
+| where CounterValue between (startofday(datetime(2018-04-01)) .. endofday(datetime(2018-04-03)))
+
+```
