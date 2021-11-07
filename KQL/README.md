@@ -113,6 +113,8 @@ Perf
 	and CounterValue > 0
 | count
 
+```
+
 ## The summarize command
 ```
 // Summarize allows you to count number of rows by column using the count()
