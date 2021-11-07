@@ -351,3 +351,62 @@ Perf
 | where CounterValue between (startofday(datetime(2018-04-01)) .. endofday(datetime(2018-04-03)))
 
 ```
+## The todynamic command
+
+## The format_Datetime and format_timespan commands
+
+```
+Perf
+| take 100
+| project CounterName
+	, CounterValue
+	, TimeGenerated
+	, format_datetime(TimeGenerated, "y-M-d")
+	, format_datetime(TimeGenerated, "yyyy-MM-dd")
+	, format_datetime(TimeGenerated, "MM/dd/yyyy hh:mm:ss tt"
+// d - day 1-31
+// dd - day 01-31
+// M - 1-12
+// MM - 01-12
+// y- 0-9999
+// yy - 00-9999
+// yyyy - 0000-9999
+```
+
+## The datetime_part command
+
+- Extracts the requested date part as an integer value.
+
+```
+let dt = datetime(2017-10-30 01:02:03.7654321); 
+print 
+year = datetime_part("year", dt),
+quarter = datetime_part("quarter", dt),
+month = datetime_part("month", dt),
+weekOfYear = datetime_part("week_of_year", dt),
+day = datetime_part("day", dt),
+dayOfYear = datetime_part("dayOfYear", dt),
+hour = datetime_part("hour", dt),
+minute = datetime_part("minute", dt),
+second = datetime_part("second", dt),
+millisecond = datetime_part("millisecond", dt),
+microsecond = datetime_part("microsecond", dt),
+nanosecond = datetime_part("nanosecond", dt)
+
+e.g returns 303 under day of year column
+```
+
+## iif
+- if, then else logic
+- Evaluates the first argument (the predicate), and returns the value of either the second or third arguments, depending on whether the predicate evaluated to true (second) or false (third).
+
+```
+// iif is a min if/then/else
+Perf
+| where CounterName == "% Free Space"
+| extend FreeState = iif CounterValue < 50
+		, You might want to look at this
+		, "You're ok!"
+```
+
+## The case command
